@@ -23,8 +23,8 @@
  */
 package org.jenkinsci.plugins.karotz;
 
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlPage;
 import jenkins.model.Jenkins;
 import org.jvnet.hudson.test.HudsonTestCase;
 
@@ -62,9 +62,9 @@ public class KarotzSystemConfigSubmitTest extends HudsonTestCase {
         String installId = "187da8ca-7b19-6422-afe1-d609129b088f";
 
         HtmlForm form = webClient.goTo("configure").getFormByName("config");
-        form.getInputByName(NAME_API_KEY).setValueAttribute(apiKey);
-        form.getInputByName(NAME_SECRET_KEY).setValueAttribute(secretKey);
-        form.getInputByName(NAME_INSTALL_ID).setValueAttribute(installId);
+        form.getInputByName(NAME_API_KEY).setValue(apiKey);
+        form.getInputByName(NAME_SECRET_KEY).setValue(secretKey);
+        form.getInputByName(NAME_INSTALL_ID).setValue(installId);
 
         submit(form);
 
@@ -76,9 +76,9 @@ public class KarotzSystemConfigSubmitTest extends HudsonTestCase {
         assertEquals(installId, d.getInstallId());
 
         form = webClient.goTo("configure").getFormByName("config");
-        assertEquals(apiKey, form.getInputByName("_.apiKey").getValueAttribute());
-        assertEquals(secretKey, form.getInputByName("_.secretKey").getValueAttribute());
-        assertEquals(installId, form.getInputByName("_.installId").getValueAttribute());
+        assertEquals(apiKey, form.getInputByName("_.apiKey").getValue());
+        assertEquals(secretKey, form.getInputByName("_.secretKey").getValue());
+        assertEquals(installId, form.getInputByName("_.installId").getValue());
     }
 
     public void testConfigSubmit_APIKeyIsNull() throws Exception {
@@ -88,8 +88,8 @@ public class KarotzSystemConfigSubmitTest extends HudsonTestCase {
 
         HtmlForm form = webClient.goTo("configure").getFormByName("config");
         form.getInputByName(NAME_API_KEY).setTextContent(apiKey);
-        form.getInputByName(NAME_SECRET_KEY).setValueAttribute(secretKey);
-        form.getInputByName(NAME_INSTALL_ID).setValueAttribute(installId);
+        form.getInputByName(NAME_SECRET_KEY).setValue(secretKey);
+        form.getInputByName(NAME_INSTALL_ID).setValue(installId);
 
         HtmlPage page = submit(form);
         assertStringContains(page.asText(), "API Key, Secret Key and Install ID are mandatory.");
@@ -101,9 +101,9 @@ public class KarotzSystemConfigSubmitTest extends HudsonTestCase {
         String installId = "187da8ca-7b19-6422-afe1-d609129b088f";
 
         HtmlForm form = webClient.goTo("configure").getFormByName("config");
-        form.getInputByName(NAME_API_KEY).setValueAttribute(apiKey);
+        form.getInputByName(NAME_API_KEY).setValue(apiKey);
         form.getInputByName(NAME_SECRET_KEY).setTextContent(secretKey);
-        form.getInputByName(NAME_INSTALL_ID).setValueAttribute(installId);
+        form.getInputByName(NAME_INSTALL_ID).setValue(installId);
 
         HtmlPage page = submit(form);
         assertStringContains(page.asText(), "API Key, Secret Key and Install ID are mandatory.");
@@ -115,8 +115,8 @@ public class KarotzSystemConfigSubmitTest extends HudsonTestCase {
         String installId = null;
 
         HtmlForm form = webClient.goTo("configure").getFormByName("config");
-        form.getInputByName(NAME_API_KEY).setValueAttribute(apiKey);
-        form.getInputByName(NAME_SECRET_KEY).setValueAttribute(secretKey);
+        form.getInputByName(NAME_API_KEY).setValue(apiKey);
+        form.getInputByName(NAME_SECRET_KEY).setValue(secretKey);
         form.getInputByName(NAME_INSTALL_ID).setTextContent(installId);
 
         HtmlPage page = submit(form);
